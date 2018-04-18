@@ -4,6 +4,7 @@ import json
 from django.db import connection
 from django.shortcuts import render_to_response
 
+
 # Create your views here.
 def dictfetchall(cursor):
     # "Return all rows from a cursor as a dict"
@@ -17,7 +18,8 @@ def dictfetchall(cursor):
 def voting(request):
     c = connection.cursor()
     c.execute('SELECT f.FixtureID, f.HomeTeam, f.AwayTeam, p.VotingPrediction As Prediction FROM pp_fixtures f '
-              'JOIN pp_prediction p ON p.FixtureID = f.FixtureID WHERE GameWeek = 31')
+              'JOIN pp_prediction p ON p.FixtureID = f.FixtureID JOIN pp_results r ON r.FixtureID = f.FixtureID '
+              'WHERE p.LRPrediction Is NOT NULL AND r.Result IS NULL')
     fixtures = dictfetchall(c)
 
     c.execute('SELECT CAST(f.GameWeek AS CHAR) AS GameWeek, CAST(SUM(c.LRCorrect)AS UNSIGNED) AS LR, '
@@ -43,7 +45,8 @@ def voting(request):
 def lr(request):
     c = connection.cursor()
     c.execute('SELECT f.FixtureID, f.HomeTeam, f.AwayTeam, p.LRPrediction As Prediction FROM pp_fixtures f '
-              'JOIN pp_prediction p ON p.FixtureID = f.FixtureID WHERE GameWeek = 31')
+              'JOIN pp_prediction p ON p.FixtureID = f.FixtureID JOIN pp_results r ON r.FixtureID = f.FixtureID '
+              'WHERE p.LRPrediction Is NOT NULL AND r.Result IS NULL')
     fixtures = dictfetchall(c)
 
     c.execute('SELECT CAST(f.GameWeek AS CHAR) AS GameWeek, CAST(SUM(c.LRCorrect)AS UNSIGNED) AS LR, '
@@ -68,7 +71,8 @@ def lr(request):
 def sgd(request):
     c = connection.cursor()
     c.execute('SELECT f.FixtureID, f.HomeTeam, f.AwayTeam, p.SGDPrediction As Prediction FROM pp_fixtures f '
-              'JOIN pp_prediction p ON p.FixtureID = f.FixtureID WHERE GameWeek = 31')
+              'JOIN pp_prediction p ON p.FixtureID = f.FixtureID JOIN pp_results r ON r.FixtureID = f.FixtureID '
+              'WHERE p.LRPrediction Is NOT NULL AND r.Result IS NULL')
     fixtures = dictfetchall(c)
 
     c.execute('SELECT CAST(f.GameWeek AS CHAR) AS GameWeek, CAST(SUM(c.LRCorrect)AS UNSIGNED) AS LR, '
@@ -94,7 +98,8 @@ def sgd(request):
 def svm(request):
     c = connection.cursor()
     c.execute('SELECT f.FixtureID, f.HomeTeam, f.AwayTeam, p.SVMPrediction As Prediction FROM pp_fixtures f '
-              'JOIN pp_prediction p ON p.FixtureID = f.FixtureID WHERE GameWeek = 31')
+              'JOIN pp_prediction p ON p.FixtureID = f.FixtureID JOIN pp_results r ON r.FixtureID = f.FixtureID '
+              'WHERE p.LRPrediction Is NOT NULL AND r.Result IS NULL')
     fixtures = dictfetchall(c)
 
     c.execute('SELECT CAST(f.GameWeek AS CHAR) AS GameWeek, CAST(SUM(c.LRCorrect)AS UNSIGNED) AS LR, '
@@ -120,7 +125,8 @@ def svm(request):
 def ext(request):
     c = connection.cursor()
     c.execute('SELECT f.FixtureID, f.HomeTeam, f.AwayTeam, p.EXTPrediction As Prediction FROM pp_fixtures f '
-              'JOIN pp_prediction p ON p.FixtureID = f.FixtureID WHERE GameWeek = 31')
+              'JOIN pp_prediction p ON p.FixtureID = f.FixtureID JOIN pp_results r ON r.FixtureID = f.FixtureID '
+              'WHERE p.LRPrediction Is NOT NULL AND r.Result IS NULL')
     fixtures = dictfetchall(c)
 
     c.execute('SELECT CAST(f.GameWeek AS CHAR) AS GameWeek, CAST(SUM(c.LRCorrect)AS UNSIGNED) AS LR, '
@@ -145,8 +151,9 @@ def ext(request):
 
 def mnnb(request):
     c = connection.cursor()
-    c.execute('SELECT f.FixtureID, f.HomeTeam, f.AwayTeam, p.LRPrediction As Prediction FROM pp_fixtures f '
-              'JOIN pp_prediction p ON p.FixtureID = f.FixtureID WHERE GameWeek = 31')
+    c.execute('SELECT f.FixtureID, f.HomeTeam, f.AwayTeam, p.MNNBPrediction As Prediction FROM pp_fixtures f '
+              'JOIN pp_prediction p ON p.FixtureID = f.FixtureID JOIN pp_results r ON r.FixtureID = f.FixtureID '
+              'WHERE p.LRPrediction Is NOT NULL AND r.Result IS NULL')
     fixtures = dictfetchall(c)
 
     c.execute('SELECT CAST(f.GameWeek AS CHAR) AS GameWeek, CAST(SUM(c.LRCorrect)AS UNSIGNED) AS LR, '

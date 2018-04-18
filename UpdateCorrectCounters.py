@@ -6,9 +6,9 @@ conn = MySQLdb.connect("localhost","root","","premierpredict",use_unicode=True, 
 # prepare a cursor object using cursor() method
 cursor = conn.cursor()
 
-sqlquery = "SELECT FixtureID, LRPrediction, SGDPrediction, SVMPrediction, EXTPrediction, MNNBPrediction," \
-           " VotingPrediction, pp_results.result from pp_Prediction INNER JOIN pp_Results " \
-           "ON pp_Results.ResultID = pp_prediction.FixtureID"
+sqlquery = "SELECT p.FixtureID, p.LRPrediction, p.SGDPrediction, p.SVMPrediction, p.EXTPrediction, " \
+           "p.MNNBPrediction, p.VotingPrediction, r.result from pp_Prediction p INNER JOIN pp_Results r " \
+           "ON r.FixtureID = p.FixtureID WHERE r.Result IS NOT NULL"
 cursor.execute(sqlquery)
 r1 = cursor.fetchall()
 

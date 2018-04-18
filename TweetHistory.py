@@ -20,14 +20,14 @@ twitter = OAuth1Session(ckey,
                         resource_owner_secret=asecret)
 # , "next": ""
 
-gw = 32
-team = 'AFC'
-# next = 'eyJhdXRoZW50aWNpdHkiOiJlYzk5OWE3ZmM2OTQyYjdiYjY3M2I0ZjViMDE2ZmM0MmYzZTUwZmU0YTBiNGUzZDE1OTA3Mzg1NWMyOTZkNDUxIiwiZnJvbURhdGUiOiIyMDE4MDMxNjEyMDAiLCJ0b0RhdGUiOiIyMDE4MDMzMTEwMzAiLCJuZXh0IjoiMjAxODAzMzEwODUxMTItOTgwMDA0NTc1MjI5ODI1MDI0LTAifQ=='
+gw = 33
+team = 'WHU'
+next = 'eyJhdXRoZW50aWNpdHkiOiJmNWM4NDg1ODBjZGZmNWU3MDcyY2MyMTJmMmY0MTA1MDcwMTI0ZWJlYTdmZWQ1ZDE0ZDNhNDY2OWI5ZTNiMDBkIiwiZnJvbURhdGUiOiIyMDE4MDMxOTEyMDAiLCJ0b0RhdGUiOiIyMDE4MDQwNzEwMzAiLCJuZXh0IjoiMjAxODA0MDQyMDM4MTItOTgxNjMyMDQ4MjIwNzg2Njg3LTAifQ=='
 
 url = 'https://api.twitter.com/1.1/tweets/search/30Day/PP30Days.json'
-# query = '{"query": "#%s", "fromDate": "201803161200", "toDate": "201803311030"}' % team
-query = '{"query": "#%s", "fromDate": "201803161200", "toDate": "201803311030", "next": "%s"}' % (team, next)
-count = 79
+query = '{"query": "#%s", "fromDate": "201803191200", "toDate": "201804071030"}' % team
+# query = '{"query": "#%s", "fromDate": "201803191200", "toDate": "201804071030", "next": "%s"}' % (team, next)
+count = 68
 myResponse = twitter.post(url, query).json()
 print(myResponse)
 tweets = myResponse["results"]

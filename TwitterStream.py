@@ -1,20 +1,123 @@
-
-
-from io import open
-from tweepy import Stream
-from tweepy import cursor
+from sklearn.externals import joblib
 from tweepy import OAuthHandler
 import tweepy
-from tweepy.streaming import StreamListener
 import MySQLdb
 
-import time
-import urllib  # URL library
-import json
+def dictfetchall(cursor):
+    # "Return all rows from a cursor as a dict"
+    columns = [col[0] for col in cursor.description]
+    return [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+    ]
 
-#        replace mysql.server with "localhost" if you are running via your own server!
-#                        server       MySQL username	MySQL pass  Database name.
-conn = MySQLdb.connect("localhost","root","","premierpredict",use_unicode=True, charset='utf8')
+
+gw = 35
+
+vectorizer = joblib.load('Classifiers/vectorizer.pkl')
+log_model = joblib.load('Classifiers/log_model.pkl')
+sgd_model = joblib.load('Classifiers/sgd_model.pkl')
+svm_model = joblib.load('Classifiers/svm_model.pkl')
+ext_model = joblib.load('Classifiers/ext_model.pkl')
+mnnb_model = joblib.load('Classifiers/mnnb_model.pkl')
+voting_model = joblib.load('Classifiers/voting_model.pkl')
+
+models = [
+    {'Name': 'LRScore', 'clf': log_model, 'Total': 'LRPTotal'},
+    {'Name': 'SGDScore', 'clf': sgd_model, 'Total': 'SGDPTotal'},
+    {'Name': 'SVMScore', 'clf': svm_model, 'Total': 'SVMPTotal'},
+    {'Name': 'EXTScore', 'clf': ext_model, 'Total': 'EXTPTotal'},
+    {'Name': 'MNNBScore', 'clf': mnnb_model, 'Total': 'MNNBPTotal'},
+    {'Name': 'VotingScore', 'clf': voting_model, 'Total': 'VotingPTotal'}
+]
+
+conn = MySQLdb.connect("localhost", "root", "", "premierpredict", use_unicode=True, charset='utf8')
+cursor = conn.cursor()
+
+sqlquery = 'SELECT * FROM pp_teams'
+cursor.execute(sqlquery)
+teams = dictfetchall(cursor)
+
+
+class MyStreamListener(tweepy.StreamListener):
+
+    def on_status(self, status):
+        if not status.retweeted and 'RT @' not in status.text and status.lang == 'en':
+            entities = status.entities
+            hashtags = entities['hashtags']
+            tags = []
+            for ht in hashtags:
+                tags.append(ht['text'].upper())
+
+            for team in teams:
+                for tag in tags:
+                    if tag == team['ShortTeamName']:
+                        # print(tag, team['ShortTeamName'])
+                        data = [status.text]
+                        features = vectorizer.transform(data)
+                        sqlquery = "SELECT * FROM pp_Total WHERE TeamName = '%s' " \
+                                   "AND GameWeek = %s" % (team['TeamName'], gw)
+                        results = cursor.execute(sqlquery)
+                        if not results:
+                            sqlquery = "INSERT INTO pp_Total(TeamName, GameWeek) " \
+                                       "Values ('%s', %s)" % (team['TeamName'], gw)
+                            cursor.execute(sqlquery)
+                            conn.commit()
+                        sqlquery = "Select TweetTotal FROM pp_total WHERE TeamName = '%s' " \
+                                   "AND GameWeek = %s" % (team['TeamName'], gw)
+                        cursor.execute(sqlquery)
+                        counter = dictfetchall(cursor)
+                        ctotal = 0
+                        for count in counter:
+                            ctotal = count['TweetTotal']
+                            if not count['TweetTotal']:
+                                ctotal = 0
+                            elif count['TweetTotal']:
+                                ctotal = count['TweetTotal']
+                            ctotal += 1
+                        for model in models:
+                            pred = model['clf'].predict(features)
+                            sqlquery = "Select %s AS PTotal FROM pp_total WHERE TeamName = '%s' " \
+                                       "AND GameWeek = %s" % (model['Total'], team['TeamName'], gw)
+                            cursor.execute(sqlquery)
+                            counter = dictfetchall(cursor)
+                            ptotal = 0
+                            for count in counter:
+                                ptotal = count['PTotal']
+                                if not count['PTotal']:
+                                    ptotal = 0
+                                elif count['PTotal']:
+                                    ptotal = count['PTotal']
+                                ptotal += pred
+                            sqlstmt = "UPDATE pp_total SET TweetTotal=%s, %s = %s WHERE TeamName = '%s' " \
+                                      "AND GameWeek = %s" % (ctotal, model['Total'], ptotal[0], team['TeamName'], gw)
+                            cursor.execute(sqlstmt)
+                            conn.commit()
+                            if ctotal != 0:
+                                clf_score = ptotal / ctotal
+                                sqlquery = "SELECT * FROM pp_sentimentscore WHERE TeamName = '%s'" \
+                                           " AND GameWeek = %s" % (team['TeamName'], gw)
+                                results = cursor.execute(sqlquery)
+                                if not results:
+                                    sqlquery = "INSERT INTO pp_sentimentscore(TeamName, GameWeek) " \
+                                               "Values ('%s', %s)" % (team['TeamName'], gw)
+                                    cursor.execute(sqlquery)
+                                    conn.commit()
+                                query = "UPDATE pp_sentimentscore SET %s = %s WHERE GameWeek = %s " \
+                                        "AND TeamName = '%s'" % (model['Name'], clf_score[0], gw, team['TeamName'])
+                                cursor.execute(query)
+                                conn.commit()
+                                print(clf_score)
+            return True
+
+
+    def on_error(self, status_code):
+        if status_code == 420:
+            # returning False in on_error disconnects the stream
+            return False
+
+        # returning non-False reconnects the stream, with backoff.
+
 
 # consumer key, consumer secret, access token, access secret.
 ckey = "UJ5LUyq9RZ8dAUiwRvKtHgOWi"
@@ -27,33 +130,11 @@ auth.set_access_token(atoken, asecret)
 
 api = tweepy.API(auth)
 
+myStreamListener = MyStreamListener()
+myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
+teamHT = []
+for team in teams:
+    teamHT.append(team['TeamHashtag'])
 
-def limit_handled(cursor):
-    while True:
-        try:
-            yield cursor.next()
-        except tweepy.RateLimitError:
-            time.sleep(15 * 60)
+myStream.filter(track=teamHT, async=True)
 
-count = 0
-team = 'SCFC'
-gw = 34
-query = '#%s' % team
-
-
-for tweet in limit_handled(tweepy.Cursor(api.search, q=query, lang='en', tweet_mode='extended', since='2018-04-11',
-                                         until='2018-04-15').items()):
-        if not tweet.retweeted and 'RT @' not in tweet.full_text:
-            print(tweet.full_text, tweet.created_at)
-            tweetdb=tweet.full_text
-            tweetdatedb=tweet.created_at
-            count += 1
-            c = conn.cursor()
-            c.execute("INSERT INTO tweetdata3 (tweet, date, team, gameweek) VALUES (%s,%s,%s,%s)",
-                      (tweetdb, tweetdatedb, team, gw))
-
-            conn.commit()
-        if count >= 110:
-            break
-
-print(count)

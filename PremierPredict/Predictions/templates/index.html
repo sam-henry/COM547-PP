@@ -10,6 +10,7 @@
             <!--Load the AJAX API-->
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script type="text/javascript">
+
           var correct = {{correct|safe}}
 
           // Load the Visualization API and the corechart package.
@@ -46,7 +47,21 @@
             // Instantiate and draw our chart, passing in some options.
             var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
             chart.draw(data, options);
+
+            //Listen for window resize action
+            $(window).resize(function() {
+                if(this.resizeTO) clearTimeout(this.resizeTO);
+                this.resizeTO = setTimeout(function() {
+                    $(this).trigger('resizeEnd');
+                }, 500);
+            });
+
+            //redraw graph when window resize is completed
+            $(window).on('resizeEnd', function() {
+                drawChart(data, options);
+            });
           }
+
         </script>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -75,22 +90,23 @@
               </button>
               <div class = "collapse navbar-collapse" id = "collapsibleNavbar">
               <ul class="navbar-nav">
-                <li class="nav-item active">
-                  <a class="nav-link" href="{% url "Voting"%}">Voting</a>
+                <li class=" nav-item {% if request.resolver_match.url_name == "Voting" %}active{% endif %}" >
+                <!--<li class="nav-item">-->
+                  <a class="nav-link " href="{% url "Voting"%}">Voting</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {% if request.resolver_match.url_name == "LR" %}active{% endif %}" >
                   <a class="nav-link" href="{% url "LR"%}">LR</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {% if request.resolver_match.url_name == "SGD" %}active{% endif %}" >
                   <a class="nav-link" href="{% url "SGD"%}">SGD</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {% if request.resolver_match.url_name == "SVM" %}active{% endif %}" >
                   <a class="nav-link" href="{% url "SVM"%}">SVM</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {% if request.resolver_match.url_name == "EXT" %}active{% endif %}" >
                   <a class="nav-link" href="{% url "EXT"%}">EXT</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {% if request.resolver_match.url_name == "MNNB" %}active{% endif %}" >
                   <a class="nav-link" href="{% url "MNNB"%}">MNNB</a>
                 </li>
               </ul>

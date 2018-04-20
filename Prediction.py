@@ -31,9 +31,9 @@ etc = ExtraTreesClassifier(
 
 for model in models:
 
-    sqlquery = "Select HomeTeamScore, AwayTeamScore, Result From pp_%s_trainingset WHERE Result IS NOT NULL"\
+    q_pred_train_view = "Select HomeTeamScore, AwayTeamScore, Result From pp_%s_trainingset WHERE Result IS NOT NULL"\
                % (model['Name'])
-    cursor.execute(sqlquery)
+    cursor.execute(q_pred_train_view)
     r = cursor.fetchall()
 
     x = []
@@ -50,9 +50,9 @@ for model in models:
     x_train = stdsc.fit_transform(x)
     clf = etc.fit(x_train, y_train)
 
-    sqlquery1 = "Select FixtureID, HomeTeamScore, AwayTeamScore, Result From pp_%s_trainingset WHERE Result IS NULL" \
-               % (model['Name'])
-    cursor.execute(sqlquery1)
+    q_pred_classify_view = "Select FixtureID, HomeTeamScore, AwayTeamScore, Result From pp_%s_trainingset " \
+                           "WHERE Result IS NULL" % (model['Name'])
+    cursor.execute(q_pred_classify_view)
     r1 = cursor.fetchall()
 
 
@@ -67,17 +67,21 @@ for model in models:
         y_pred = clf.predict(x_test)
 
         # If fixture ID is in the table update if not insert
-        sqlquery2 = "SELECT * FROM pp_prediction WHERE FixtureID = %s" % fixture
-        cursor.execute(sqlquery2)
+        q_pred_check = "SELECT * FROM pp_prediction WHERE FixtureID = %s" % fixture
+        cursor.execute(q_pred_check)
         r2 = cursor.fetchall()
         if r2:
-            sqlquery3 = "UPDATE pp_prediction SET %s = %s WHERE FixtureID = %s " % (model['FieldName'], y_pred[0], fixture)
+            q_pred_update = "UPDATE pp_prediction SET %s = %s WHERE FixtureID = %s "\
+                            % (model['FieldName'], y_pred[0], fixture)
+            cursor.execute(q_pred_update)
+            conn.commit()
         else:
             # INSERT INTO `pp_prediction`(`FixtureID`, `LRPrediction`) VALUES ([value-1],[value-2])
-            sqlquery3 = "INSERT INTO pp_prediction(FixtureID, %s) VALUES(%s, %s)" % (model['FieldName'], fixture, y_pred[0])
+            q_pred_insert = "INSERT INTO pp_prediction(FixtureID, %s) VALUES(%s, %s)"\
+                            % (model['FieldName'], fixture, y_pred[0])
+            cursor.execute(q_pred_insert)
+            conn.commit()
 
-        cursor.execute(sqlquery3)
-        conn.commit()
 
 
 conn.close()

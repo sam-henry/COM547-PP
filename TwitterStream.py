@@ -34,8 +34,8 @@ models = [
 conn = MySQLdb.connect("localhost", "root", "", "premierpredict", use_unicode=True, charset='utf8')
 cursor = conn.cursor()
 
-sqlquery = 'SELECT * FROM pp_teams'
-cursor.execute(sqlquery)
+q_teams = 'SELECT * FROM pp_teams'
+cursor.execute(q_teams)
 teams = dictfetchall(cursor)
 
 
@@ -52,20 +52,19 @@ class MyStreamListener(tweepy.StreamListener):
             for team in teams:
                 for tag in tags:
                     if tag == team['ShortTeamName']:
-                        # print(tag, team['ShortTeamName'])
                         data = [status.text]
                         features = vectorizer.transform(data)
-                        sqlquery = "SELECT * FROM pp_Total WHERE TeamName = '%s' " \
+                        q_totals_check = "SELECT * FROM pp_Total WHERE TeamName = '%s' " \
                                    "AND GameWeek = %s" % (team['TeamName'], gw)
-                        results = cursor.execute(sqlquery)
+                        results = cursor.execute(q_totals_check)
                         if not results:
-                            sqlquery = "INSERT INTO pp_Total(TeamName, GameWeek) " \
+                            q_totals_insert= "INSERT INTO pp_Total(TeamName, GameWeek) " \
                                        "Values ('%s', %s)" % (team['TeamName'], gw)
-                            cursor.execute(sqlquery)
+                            cursor.execute(q_totals_insert)
                             conn.commit()
-                        sqlquery = "Select TweetTotal FROM pp_total WHERE TeamName = '%s' " \
+                        q_tweet_total = "Select TweetTotal FROM pp_total WHERE TeamName = '%s' " \
                                    "AND GameWeek = %s" % (team['TeamName'], gw)
-                        cursor.execute(sqlquery)
+                        cursor.execute(q_tweet_total)
                         counter = dictfetchall(cursor)
                         ctotal = 0
                         for count in counter:
@@ -77,9 +76,9 @@ class MyStreamListener(tweepy.StreamListener):
                             ctotal += 1
                         for model in models:
                             pred = model['clf'].predict(features)
-                            sqlquery = "Select %s AS PTotal FROM pp_total WHERE TeamName = '%s' " \
+                            q_positive_total= "Select %s AS PTotal FROM pp_total WHERE TeamName = '%s' " \
                                        "AND GameWeek = %s" % (model['Total'], team['TeamName'], gw)
-                            cursor.execute(sqlquery)
+                            cursor.execute(q_positive_total)
                             counter = dictfetchall(cursor)
                             ptotal = 0
                             for count in counter:
@@ -89,23 +88,23 @@ class MyStreamListener(tweepy.StreamListener):
                                 elif count['PTotal']:
                                     ptotal = count['PTotal']
                                 ptotal += pred
-                            sqlstmt = "UPDATE pp_total SET TweetTotal=%s, %s = %s WHERE TeamName = '%s' " \
+                            q_total_update = "UPDATE pp_total SET TweetTotal=%s, %s = %s WHERE TeamName = '%s' " \
                                       "AND GameWeek = %s" % (ctotal, model['Total'], ptotal[0], team['TeamName'], gw)
-                            cursor.execute(sqlstmt)
+                            cursor.execute(q_total_update)
                             conn.commit()
                             if ctotal != 0:
                                 clf_score = ptotal / ctotal
-                                sqlquery = "SELECT * FROM pp_sentimentscore WHERE TeamName = '%s'" \
+                                q_sentimentscore_check = "SELECT * FROM pp_sentimentscore WHERE TeamName = '%s'" \
                                            " AND GameWeek = %s" % (team['TeamName'], gw)
-                                results = cursor.execute(sqlquery)
+                                results = cursor.execute(q_sentimentscore_check)
                                 if not results:
-                                    sqlquery = "INSERT INTO pp_sentimentscore(TeamName, GameWeek) " \
+                                    q_sentimentscore_insert = "INSERT INTO pp_sentimentscore(TeamName, GameWeek) " \
                                                "Values ('%s', %s)" % (team['TeamName'], gw)
-                                    cursor.execute(sqlquery)
+                                    cursor.execute(q_sentimentscore_insert)
                                     conn.commit()
-                                query = "UPDATE pp_sentimentscore SET %s = %s WHERE GameWeek = %s " \
+                                q_sentimentscore_update = "UPDATE pp_sentimentscore SET %s = %s WHERE GameWeek = %s " \
                                         "AND TeamName = '%s'" % (model['Name'], clf_score[0], gw, team['TeamName'])
-                                cursor.execute(query)
+                                cursor.execute(q_sentimentscore_update)
                                 conn.commit()
                                 print(clf_score)
             return True

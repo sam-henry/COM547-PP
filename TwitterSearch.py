@@ -1,16 +1,8 @@
-
-
-from io import open
-from tweepy import Stream
-from tweepy import cursor
 from tweepy import OAuthHandler
 import tweepy
-from tweepy.streaming import StreamListener
 import MySQLdb
-
 import time
-import urllib  # URL library
-import json
+
 
 #        replace mysql.server with "localhost" if you are running via your own server!
 #                        server       MySQL username	MySQL pass  Database name.
@@ -37,7 +29,7 @@ def limit_handled(cursor):
 
 count = 0
 team = 'SCFC'
-gw = 34
+gw = 30
 query = '#%s' % team
 
 
@@ -49,11 +41,9 @@ for tweet in limit_handled(tweepy.Cursor(api.search, q=query, lang='en', tweet_m
             tweetdatedb=tweet.created_at
             count += 1
             c = conn.cursor()
-            c.execute("INSERT INTO tweetdata3 (tweet, date, team, gameweek) VALUES (%s,%s,%s,%s)",
+            c.execute("INSERT INTO tweetdata (tweet, date, team, gameweek) VALUES (%s,%s,%s,%s)",
                       (tweetdb, tweetdatedb, team, gw))
 
             conn.commit()
         if count >= 110:
             break
-
-print(count)

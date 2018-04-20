@@ -15,19 +15,21 @@ def dictfetchall(cursor):
     ]
 
 
+q_graph_data = "SELECT CAST(f.GameWeek AS CHAR) AS GameWeek, CAST(SUM(c.LRCorrect)AS UNSIGNED) AS LR," \
+               " CAST(SUM(c.SGDCorrect) AS UNSIGNED) AS SGD, CAST(SUM(c.SVMCorrect) AS UNSIGNED) AS SVM," \
+               " CAST(SUM(c.EXTCorrect) AS UNSIGNED) AS EXT, CAST(SUM(c.MNNBCorrect) AS UNSIGNED) AS MNNB," \
+               " CAST(SUM(c.VotingCorrect) AS UNSIGNED) AS Voting FROM pp_correct c JOIN pp_fixtures f" \
+               " ON f.FixtureID = c.FixtureID GROUP BY f.GameWeek"
+
+
 def voting(request):
     c = connection.cursor()
-    c.execute('SELECT f.FixtureID, f.HomeTeam, f.AwayTeam, p.VotingPrediction As Prediction FROM pp_fixtures f '
-              'JOIN pp_prediction p ON p.FixtureID = f.FixtureID JOIN pp_results r ON r.FixtureID = f.FixtureID '
-              'WHERE p.LRPrediction Is NOT NULL AND r.Result IS NULL')
+    q_voting_table_data = "SELECT f.FixtureID, f.HomeTeam, f.AwayTeam, p.VotingPrediction As Prediction " \
+                          "FROM pp_fixtures f JOIN pp_prediction p ON p.FixtureID = f.FixtureID JOIN pp_results r " \
+                          "ON r.FixtureID = f.FixtureID WHERE p.LRPrediction Is NOT NULL AND r.Result IS NULL"
+    c.execute(q_voting_table_data)
     fixtures = dictfetchall(c)
-
-    c.execute('SELECT CAST(f.GameWeek AS CHAR) AS GameWeek, CAST(SUM(c.LRCorrect)AS UNSIGNED) AS LR, '
-              'CAST(SUM(c.SGDCorrect) AS UNSIGNED) AS SGD, CAST(SUM(c.SVMCorrect) AS UNSIGNED) AS SVM, '
-              'CAST(SUM(c.EXTCorrect) AS UNSIGNED) AS EXT, CAST(SUM(c.MNNBCorrect) AS UNSIGNED) AS MNNB, '
-              'CAST(SUM(c.VotingCorrect) AS UNSIGNED) AS Voting FROM pp_correct c JOIN pp_fixtures f '
-              'ON f.FixtureID = c.FixtureID GROUP BY f.GameWeek')
-
+    c.execute(q_graph_data)
     correct = dictfetchall(c)
     correct = json.dumps(correct)
     # fixtures = PpFixtures.objects.filter(gameweek=31)
@@ -36,141 +38,98 @@ def voting(request):
         'fixtures': fixtures,
         'correct': correct,
         'name': 'Voting Predictions'
-
     }
-
     return render(request, 'index.html', context)
 
 
 def lr(request):
     c = connection.cursor()
-    c.execute('SELECT f.FixtureID, f.HomeTeam, f.AwayTeam, p.LRPrediction As Prediction FROM pp_fixtures f '
-              'JOIN pp_prediction p ON p.FixtureID = f.FixtureID JOIN pp_results r ON r.FixtureID = f.FixtureID '
-              'WHERE p.LRPrediction Is NOT NULL AND r.Result IS NULL')
+    q_lr_table_data = "SELECT f.FixtureID, f.HomeTeam, f.AwayTeam, p.LRPrediction As Prediction " \
+                      "FROM pp_fixtures f JOIN pp_prediction p ON p.FixtureID = f.FixtureID " \
+                      "JOIN pp_results r ON r.FixtureID = f.FixtureID " \
+                      "WHERE p.LRPrediction Is NOT NULL AND r.Result IS NULL"
+    c.execute(q_lr_table_data)
     fixtures = dictfetchall(c)
-
-    c.execute('SELECT CAST(f.GameWeek AS CHAR) AS GameWeek, CAST(SUM(c.LRCorrect)AS UNSIGNED) AS LR, '
-              'CAST(SUM(c.SGDCorrect) AS UNSIGNED) AS SGD, CAST(SUM(c.SVMCorrect) AS UNSIGNED) AS SVM, '
-              'CAST(SUM(c.EXTCorrect) AS UNSIGNED) AS EXT, CAST(SUM(c.MNNBCorrect) AS UNSIGNED) AS MNNB, '
-              'CAST(SUM(c.VotingCorrect) AS UNSIGNED) AS Voting FROM pp_correct c JOIN pp_fixtures f '
-              'ON f.FixtureID = c.FixtureID GROUP BY f.GameWeek')
-
+    c.execute(q_graph_data)
     correct = dictfetchall(c)
     correct = json.dumps(correct)
-    # fixtures = PpFixtures.objects.filter(gameweek=31)
-    # fixtures = PpFixtures.objects.raw('SELECT * FROM pp_fixtures WHERE GameWeek = 31')
     context = {
         'fixtures': fixtures,
         'correct': correct,
         'name': 'Logarithmic Regression Predictions'
     }
-
     return render(request, 'index.html', context)
 
 
 def sgd(request):
     c = connection.cursor()
-    c.execute('SELECT f.FixtureID, f.HomeTeam, f.AwayTeam, p.SGDPrediction As Prediction FROM pp_fixtures f '
-              'JOIN pp_prediction p ON p.FixtureID = f.FixtureID JOIN pp_results r ON r.FixtureID = f.FixtureID '
-              'WHERE p.LRPrediction Is NOT NULL AND r.Result IS NULL')
+    q_sgd_table_data = "SELECT f.FixtureID, f.HomeTeam, f.AwayTeam, p.SGDPrediction As Prediction " \
+                       "FROM pp_fixtures f JOIN pp_prediction p ON p.FixtureID = f.FixtureID " \
+                       "JOIN pp_results r ON r.FixtureID = f.FixtureID " \
+                       "WHERE p.LRPrediction Is NOT NULL AND r.Result IS NULL"
+    c.execute(q_sgd_table_data)
     fixtures = dictfetchall(c)
-
-    c.execute('SELECT CAST(f.GameWeek AS CHAR) AS GameWeek, CAST(SUM(c.LRCorrect)AS UNSIGNED) AS LR, '
-              'CAST(SUM(c.SGDCorrect) AS UNSIGNED) AS SGD, CAST(SUM(c.SVMCorrect) AS UNSIGNED) AS SVM, '
-              'CAST(SUM(c.EXTCorrect) AS UNSIGNED) AS EXT, CAST(SUM(c.MNNBCorrect) AS UNSIGNED) AS MNNB, '
-              'CAST(SUM(c.VotingCorrect) AS UNSIGNED) AS Voting FROM pp_correct c JOIN pp_fixtures f '
-              'ON f.FixtureID = c.FixtureID GROUP BY f.GameWeek')
-
+    c.execute(q_graph_data)
     correct = dictfetchall(c)
     correct = json.dumps(correct)
-    # fixtures = PpFixtures.objects.filter(gameweek=31)
-    # fixtures = PpFixtures.objects.raw('SELECT * FROM pp_fixtures WHERE GameWeek = 31')
     context = {
         'fixtures': fixtures,
         'correct': correct,
         'name': 'Stochastic Gradient Descent Predictions'
-
     }
-
     return render(request, 'index.html', context)
 
 
 def svm(request):
     c = connection.cursor()
-    c.execute('SELECT f.FixtureID, f.HomeTeam, f.AwayTeam, p.SVMPrediction As Prediction FROM pp_fixtures f '
-              'JOIN pp_prediction p ON p.FixtureID = f.FixtureID JOIN pp_results r ON r.FixtureID = f.FixtureID '
-              'WHERE p.LRPrediction Is NOT NULL AND r.Result IS NULL')
+    q_svm_table_data = "SELECT f.FixtureID, f.HomeTeam, f.AwayTeam, p.SVMPrediction As Prediction " \
+                       "FROM pp_fixtures f JOIN pp_prediction p ON p.FixtureID = f.FixtureID " \
+                       "JOIN pp_results r ON r.FixtureID = f.FixtureID " \
+                       "WHERE p.LRPrediction Is NOT NULL AND r.Result IS NULL"
+    c.execute(q_svm_table_data)
     fixtures = dictfetchall(c)
-
-    c.execute('SELECT CAST(f.GameWeek AS CHAR) AS GameWeek, CAST(SUM(c.LRCorrect)AS UNSIGNED) AS LR, '
-              'CAST(SUM(c.SGDCorrect) AS UNSIGNED) AS SGD, CAST(SUM(c.SVMCorrect) AS UNSIGNED) AS SVM, '
-              'CAST(SUM(c.EXTCorrect) AS UNSIGNED) AS EXT, CAST(SUM(c.MNNBCorrect) AS UNSIGNED) AS MNNB, '
-              'CAST(SUM(c.VotingCorrect) AS UNSIGNED) AS Voting FROM pp_correct c JOIN pp_fixtures f '
-              'ON f.FixtureID = c.FixtureID GROUP BY f.GameWeek')
-
+    c.execute(q_graph_data)
     correct = dictfetchall(c)
     correct = json.dumps(correct)
-    # fixtures = PpFixtures.objects.filter(gameweek=31)
-    # fixtures = PpFixtures.objects.raw('SELECT * FROM pp_fixtures WHERE GameWeek = 31')
     context = {
         'fixtures': fixtures,
         'correct': correct,
         'name': 'Support Vector Machine Predictions'
-
     }
-
     return render(request, 'index.html', context)
 
 
 def ext(request):
     c = connection.cursor()
-    c.execute('SELECT f.FixtureID, f.HomeTeam, f.AwayTeam, p.EXTPrediction As Prediction FROM pp_fixtures f '
-              'JOIN pp_prediction p ON p.FixtureID = f.FixtureID JOIN pp_results r ON r.FixtureID = f.FixtureID '
-              'WHERE p.LRPrediction Is NOT NULL AND r.Result IS NULL')
+    q_ext_table_data = "SELECT f.FixtureID, f.HomeTeam, f.AwayTeam, p.EXTPrediction As Prediction " \
+                       "FROM pp_fixtures f JOIN pp_prediction p ON p.FixtureID = f.FixtureID JOIN pp_results r " \
+                       "ON r.FixtureID = f.FixtureID WHERE p.LRPrediction Is NOT NULL AND r.Result IS NULL"
+    c.execute(q_ext_table_data)
     fixtures = dictfetchall(c)
-
-    c.execute('SELECT CAST(f.GameWeek AS CHAR) AS GameWeek, CAST(SUM(c.LRCorrect)AS UNSIGNED) AS LR, '
-              'CAST(SUM(c.SGDCorrect) AS UNSIGNED) AS SGD, CAST(SUM(c.SVMCorrect) AS UNSIGNED) AS SVM, '
-              'CAST(SUM(c.EXTCorrect) AS UNSIGNED) AS EXT, CAST(SUM(c.MNNBCorrect) AS UNSIGNED) AS MNNB, '
-              'CAST(SUM(c.VotingCorrect) AS UNSIGNED) AS Voting FROM pp_correct c JOIN pp_fixtures f '
-              'ON f.FixtureID = c.FixtureID GROUP BY f.GameWeek')
-
+    c.execute(q_graph_data)
     correct = dictfetchall(c)
     correct = json.dumps(correct)
-    # fixtures = PpFixtures.objects.filter(gameweek=31)
-    # fixtures = PpFixtures.objects.raw('SELECT * FROM pp_fixtures WHERE GameWeek = 31')
     context = {
         'fixtures': fixtures,
         'correct': correct,
         'name': 'Extra Random Trees Predictions'
-
     }
-
     return render(request, 'index.html', context)
 
 
 def mnnb(request):
     c = connection.cursor()
-    c.execute('SELECT f.FixtureID, f.HomeTeam, f.AwayTeam, p.MNNBPrediction As Prediction FROM pp_fixtures f '
-              'JOIN pp_prediction p ON p.FixtureID = f.FixtureID JOIN pp_results r ON r.FixtureID = f.FixtureID '
-              'WHERE p.LRPrediction Is NOT NULL AND r.Result IS NULL')
+    q_mnnb_table_data = "SELECT f.FixtureID, f.HomeTeam, f.AwayTeam, p.MNNBPrediction As Prediction " \
+                        "FROM pp_fixtures f JOIN pp_prediction p ON p.FixtureID = f.FixtureID JOIN pp_results r " \
+                        "ON r.FixtureID = f.FixtureID WHERE p.LRPrediction Is NOT NULL AND r.Result IS NULL"
+    c.execute(q_mnnb_table_data)
     fixtures = dictfetchall(c)
-
-    c.execute('SELECT CAST(f.GameWeek AS CHAR) AS GameWeek, CAST(SUM(c.LRCorrect)AS UNSIGNED) AS LR, '
-              'CAST(SUM(c.SGDCorrect) AS UNSIGNED) AS SGD, CAST(SUM(c.SVMCorrect) AS UNSIGNED) AS SVM, '
-              'CAST(SUM(c.EXTCorrect) AS UNSIGNED) AS EXT, CAST(SUM(c.MNNBCorrect) AS UNSIGNED) AS MNNB, '
-              'CAST(SUM(c.VotingCorrect) AS UNSIGNED) AS Voting FROM pp_correct c JOIN pp_fixtures f '
-              'ON f.FixtureID = c.FixtureID GROUP BY f.GameWeek')
-
+    c.execute(q_graph_data)
     correct = dictfetchall(c)
     correct = json.dumps(correct)
-    # fixtures = PpFixtures.objects.filter(gameweek=31)
-    # fixtures = PpFixtures.objects.raw('SELECT * FROM pp_fixtures WHERE GameWeek = 31')
     context = {
         'fixtures': fixtures,
         'correct': correct,
         'name': 'Multinomial Naive Bayes Predictions'
-
     }
-
     return render(request, 'index.html', context)

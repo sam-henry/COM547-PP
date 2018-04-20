@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="de896424-8e68-4f39-b651-48581e8b38fd" name="Default" comment="Test Commit PyCharm">
-      <change afterPath="$PROJECT_DIR$/TwitterSearch.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TwitterStream.py" beforeDir="false" afterPath="$PROJECT_DIR$/TwitterStream.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PremierPredict/Predictions/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/PremierPredict/Predictions/templates/index.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -15,7 +14,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="TwitterStream.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="TwitterStream.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/TwitterStream.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="163">
@@ -23,6 +22,36 @@
               <folding>
                 <element signature="e#0#36#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Prediction.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Prediction.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="38" column="10" lean-forward="true" selection-start-line="38" selection-start-column="10" selection-end-line="38" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/PremierPredict/Predictions/templates/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="653">
+              <caret line="148" column="32" selection-start-line="148" selection-start-column="32" selection-end-line="148" selection-end-column="32" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UpdateCorrectCounters.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/UpdateCorrectCounters.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="306">
+              <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -55,7 +84,6 @@
         <option value="$PROJECT_DIR$/PremierPredict/homepage/templates/base_generic.html" />
         <option value="$PROJECT_DIR$/PremierPredict/homepage/templates/homepage/book_detail.html" />
         <option value="$PROJECT_DIR$/SBS.py" />
-        <option value="$PROJECT_DIR$/Prediction.py" />
         <option value="$PROJECT_DIR$/SeintimentClassifier.py" />
         <option value="$PROJECT_DIR$/PremierPredict/homepage/urls.py" />
         <option value="$PROJECT_DIR$/PremierPredict/homepage/views.py" />
@@ -73,17 +101,18 @@
         <option value="$PROJECT_DIR$/UpdateCorrectCounters.py" />
         <option value="$PROJECT_DIR$/PremierPredict/Predictions/views.py" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/PremierPredict/Predictions/templates/index.html" />
         <option value="$PROJECT_DIR$/TwitterSearch.py" />
         <option value="$PROJECT_DIR$/Testing.py" />
         <option value="$PROJECT_DIR$/TwitterStream.py" />
+        <option value="$PROJECT_DIR$/Prediction.py" />
+        <option value="$PROJECT_DIR$/PremierPredict/Predictions/templates/index.html" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-9" />
     <option name="width" value="995" />
-    <option name="height" value="1398" />
+    <option name="height" value="1399" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -97,6 +126,24 @@
             <path>
               <item name="TwitterStream" type="b2602c69:ProjectViewProjectNode" />
               <item name="TwitterStream" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TwitterStream" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TwitterStream" type="462c0819:PsiDirectoryNode" />
+              <item name="PremierPredict" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TwitterStream" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TwitterStream" type="462c0819:PsiDirectoryNode" />
+              <item name="PremierPredict" type="462c0819:PsiDirectoryNode" />
+              <item name="Predictions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="TwitterStream" type="b2602c69:ProjectViewProjectNode" />
+              <item name="TwitterStream" type="462c0819:PsiDirectoryNode" />
+              <item name="PremierPredict" type="462c0819:PsiDirectoryNode" />
+              <item name="Predictions" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -129,7 +176,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.TwitterStream">
+  <component name="RunManager" selected="Python.Prediction">
     <configuration name="ClassifyTweets" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="TwitterStream" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -229,10 +276,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.Prediction" />
+        <item itemvalue="Python.UpdateCorrectCounters" />
         <item itemvalue="Python.TwitterStream" />
         <item itemvalue="Python.Testing" />
-        <item itemvalue="Python.UpdateCorrectCounters" />
-        <item itemvalue="Python.Prediction" />
         <item itemvalue="Python.ClassifyTweets" />
       </list>
     </recent_temporary>
@@ -259,15 +306,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="0" width="796" height="1118" extended-state="0" />
+    <frame x="-7" y="-7" width="2062" height="1126" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24936062" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.095214844" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5058594" side_tool="true" weight="0.2166998" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49414062" visible="true" weight="0.21492538" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49414062" visible="true" weight="0.21322803" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32964426" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -417,13 +464,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/PremierPredict/Predictions/templates/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="874">
-          <caret line="113" column="18" lean-forward="true" selection-start-line="113" selection-start-column="18" selection-end-line="113" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/PremierPredict/Predictions/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2907">
@@ -431,24 +471,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/UpdateCorrectCounters.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/TwitterSearch.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="855">
           <caret line="58" column="12" selection-start-line="58" selection-start-column="12" selection-end-line="58" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Prediction.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="36" column="25" lean-forward="true" selection-start-line="35" selection-start-column="4" selection-end-line="36" selection-end-column="25" />
         </state>
       </provider>
     </entry>
@@ -463,28 +489,40 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
           <caret line="30" selection-start-line="30" selection-end-line="30" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Testing.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="38" column="28" lean-forward="true" selection-start-line="38" selection-start-column="28" selection-end-line="38" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/Testing.py" />
     <entry file="file://$PROJECT_DIR$/TwitterStream.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="163">
           <caret line="92" column="93" selection-start-line="92" selection-start-column="93" selection-end-line="92" selection-end-column="93" />
           <folding>
             <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/UpdateCorrectCounters.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Prediction.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="38" column="10" lean-forward="true" selection-start-line="38" selection-start-column="10" selection-end-line="38" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/PremierPredict/Predictions/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="653">
+          <caret line="148" column="32" selection-start-line="148" selection-start-column="32" selection-end-line="148" selection-end-column="32" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

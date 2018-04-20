@@ -32,8 +32,6 @@ def voting(request):
     c.execute(q_graph_data)
     correct = dictfetchall(c)
     correct = json.dumps(correct)
-    # fixtures = PpFixtures.objects.filter(gameweek=31)
-    # fixtures = PpFixtures.objects.raw('SELECT * FROM pp_fixtures WHERE GameWeek = 31')
     context = {
         'fixtures': fixtures,
         'correct': correct,

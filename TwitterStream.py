@@ -129,11 +129,11 @@ auth.set_access_token(atoken, asecret)
 
 api = tweepy.API(auth)
 
-myStreamListener = MyStreamListener()
-myStream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
+twitterListener = MyStreamListener()
+myStream = tweepy.Stream(auth=api.auth, listener=twitterListener)
 teamHT = []
-for team in teams:
-    teamHT.append(team['TeamHashtag'])
+for t in teams:
+    teamHT.append(t['TeamHashtag'])
 
 myStream.filter(track=teamHT, async=True)
 

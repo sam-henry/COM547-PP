@@ -1,3 +1,4 @@
+# import statements
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import VotingClassifier, ExtraTreesClassifier
@@ -11,13 +12,13 @@ from sklearn.naive_bayes import MultinomialNB
 from sklearn.externals import joblib
 
 import pandas as pd
-
+# read in the training data
 data = pd.read_csv('./train.csv')
 data = data[['Sentiment', 'SentimentText']]
-
+# split into positve and negative
 pos = data[data['Sentiment'] == 1]
 neg = data[data['Sentiment'] == 0]
-
+# create two lists of data x for text y for sentiment
 x = []
 y = []
 for row in pos.itertuples(index=True, name='data'):
@@ -28,41 +29,29 @@ for row in pos.itertuples(index=True, name='data'):
 for row in neg.itertuples(index=True, name='data'):
     x.append(getattr(row, "SentimentText"))
     y.append(0)
-
-# x = []
-# y = []
-# with open("./pos_tweets.txt", encoding='utf-8') as f:
-#     for i in f:
-#         x.append(i)
-#         y.append(1)
-# with open("./neg_tweets.txt", encoding='utf-8') as f:
-#     for i in f:
-#         x.append(i)
-#         y.append(0)
-#
-
+# create vectoriszer object
 vectorizer = CountVectorizer(
     analyzer='word',
     lowercase=False,
     max_features=10000,
 )
-
+# fit the vectorizer on the training data
 features = vectorizer.fit_transform(
     x
 )
-
+# convert features to array
 features_nd = features.toarray()  # for easy usage
-
+# save the vectorizer object to disk
 filename = 'Classifiers/vectorizer.pkl'
 _ = joblib.dump(vectorizer, filename, compress=9)
-
+# split the data into training and test sets
 x_train, x_test, y_train, y_test = train_test_split(
     features_nd,
     y,
     train_size=0.8,
     random_state=1234,
 )
-
+# create the classification models
 ext_model = ExtraTreesClassifier(
     n_estimators=45,
     max_features=45,
@@ -70,14 +59,17 @@ ext_model = ExtraTreesClassifier(
     min_samples_leaf=2
 )
 
-# rnd_model = RandomForestClassifier(
-#     n_estimators=44,
-#     max_features=44,
-#     max_depth=None,
-#     min_samples_leaf=2,
-#     bootstrap=True,
-#     n_jobs=-1
-# )
+log_model = LogisticRegression(
+    C=500
+)
+
+sgd_model = SGDClassifier(
+    random_state=178,
+    loss="modified_huber",
+    penalty="l1",
+)
+
+mnnb_model = MultinomialNB()
 
 svm_model = Pipeline((
     ("scaler", StandardScaler(with_mean=False)),
@@ -91,36 +83,11 @@ svm_model = Pipeline((
     )),
     ))
 
-log_model = LogisticRegression(
-    C=500
-)
-
-# sfct_model = LogisticRegression(
-#     multi_class="multinomial",
-#     solver="lbfgs",
-#     C=50
-# )
-
-sgd_model = SGDClassifier(
-    random_state=178,
-    loss="modified_huber",
-    penalty="l1",
-)
-
-# sgdlgl2_model = SGDClassifier(
-#     random_state=42,
-#     loss="log",
-#     penalty="l2"
-#
-# )
-
-mnnb_model = MultinomialNB()
-
 voting_model = VotingClassifier(
     estimators=[('lr', log_model), ('sgd', sgd_model), ('svc', svm_model), ('et', ext_model), ('mnnb', mnnb_model)],
     voting='hard'
 )
-
+# train the classification models and save them to disk
 for clf in (log_model, sgd_model, svm_model, ext_model, mnnb_model, voting_model):
     clf.fit(x_train, y_train)
     if clf is log_model:
@@ -135,6 +102,9 @@ for clf in (log_model, sgd_model, svm_model, ext_model, mnnb_model, voting_model
         filename = 'Classifiers/mnnb_model.pkl'
     else:
         filename = 'Classifiers/voting_model.pkl'
+
+        # this code was used to output the accuracy and recall values of the trained models.
+        # it has been left here commented out for when the models need to be retrained
         # y_pred = clf.predict(x_test)
         # print(clf.__class__.__name__, accuracy_score(y_test, y_pred))
         # print(cross_val_score(clf, x_train, y_train, cv=3, scoring="accuracy"))
@@ -143,5 +113,3 @@ for clf in (log_model, sgd_model, svm_model, ext_model, mnnb_model, voting_model
         # print(recall_score(y_train, y_train_pred))
 
     _ = joblib.dump(clf, filename, compress=9)
-
-

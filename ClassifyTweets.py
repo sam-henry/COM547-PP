@@ -1,6 +1,8 @@
 from sklearn.externals import joblib
 import MySQLdb
 
+
+# import saved modela and vectorizer from file
 vectorizer = joblib.load('Classifiers/vectorizer.pkl')
 log_model = joblib.load('Classifiers/log_model.pkl')
 sgd_model = joblib.load('Classifiers/sgd_model.pkl')
@@ -9,7 +11,7 @@ ext_model = joblib.load('Classifiers/ext_model.pkl')
 mnnb_model = joblib.load('Classifiers/mnnb_model.pkl')
 voting_model = joblib.load('Classifiers/voting_model.pkl')
 
-
+# function to convert db responses to dictionaries
 def dictfetchall(cursor):
     # "Return all rows from a cursor as a dict"
     columns = [col[0] for col in cursor.description]
@@ -18,21 +20,22 @@ def dictfetchall(cursor):
         for row in cursor.fetchall()
     ]
 
-#        replace mysql.server with "localhost" if you are running via your own server!
-#                        server       MySQL username	MySQL pass  Database name.
+# database connection
 conn = MySQLdb.connect("localhost","root","","premierpredict",use_unicode=True, charset='utf8')
 
 # prepare a cursor object using cursor() method
 cursor = conn.cursor()
 gws = [34]
+# retrieve all the teams from the DB
 teams = []
 sqlquery = "SELECT TeamName, ShortTeamName FROM pp_teams"
 cursor.execute(sqlquery)
 teams = dictfetchall(cursor)
-
+# print the team data to the console
 for team in teams:
     print(team['TeamName'])
     print(team['ShortTeamName'])
+    # create a dictionary object to contain models
 models = [
     {'Name': 'LRScore', 'clf': log_model},
     {'Name': 'SGDScore', 'clf': sgd_model},
@@ -43,11 +46,9 @@ models = [
 
 ]
 
-
-# for model in models:
-#     print(model['Name'])
-#     print(model['clf'])
+# loop through game weeks
 for gw in gws:
+    # loop through teams
     for team in teams:
         sqlstmt = "SELECT * FROM tweetdata3 WHERE GameWeek = '%s' AND Team = '%s'" % (gw, team['ShortTeamName'])
         # Execute the SQL command

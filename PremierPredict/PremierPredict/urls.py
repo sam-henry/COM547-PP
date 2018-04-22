@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-
+#Added urls for each link
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.voting, name='Voting'),
@@ -30,4 +30,5 @@ urlpatterns = [
     path('SVM', views.svm, name='SVM'),
     path('EXT', views.ext, name='EXT'),
     path('MNNB', views.mnnb, name='MNNB')
+    #line to add in pathway to the statc files
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

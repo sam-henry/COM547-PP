@@ -13,7 +13,7 @@ def dictfetchall(cursor):
     ]
 
 # set the game week value
-gw = 35
+gw = 38
 
 # import the classification models and vectorizer from file
 vectorizer = joblib.load('Classifiers/vectorizer.pkl')
@@ -62,6 +62,7 @@ class MyStreamListener(tweepy.StreamListener):
                     if tag == team['ShortTeamName']:
                         #retrieve the data
                         data = [status.text]
+                        print(data)
                         # prepare the data for classification
                         features = vectorizer.transform(data)
                         # check if there is count total data in the db
@@ -136,7 +137,7 @@ class MyStreamListener(tweepy.StreamListener):
                                 cursor.execute(q_sentimentscore_update)
                                 conn.commit()
                                 # output the score to the data base
-                                print(clf_score)
+                                # print(clf_score)
             # return true to the twitter stream to retrieve the next tweet.
             return True
 

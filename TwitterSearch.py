@@ -27,14 +27,15 @@ def limit_handled(cursor):
         except tweepy.RateLimitError:
             time.sleep(15 * 60)
 
-count = 0
-team = 'SCFC'
-gw = 30
+
+count = 49
+team = 'NUFC'
+gw = 39
 query = '#%s' % team
 
 
-for tweet in limit_handled(tweepy.Cursor(api.search, q=query, lang='en', tweet_mode='extended', since='2018-04-11',
-                                         until='2018-04-15').items()):
+for tweet in limit_handled(tweepy.Cursor(api.search, q=query, lang='en', tweet_mode='extended', since='2018-05-03',
+                                         until='2018-05-09').items()):
         if not tweet.retweeted and 'RT @' not in tweet.full_text:
             print(tweet.full_text, tweet.created_at)
             tweetdb=tweet.full_text
@@ -45,5 +46,5 @@ for tweet in limit_handled(tweepy.Cursor(api.search, q=query, lang='en', tweet_m
                       (tweetdb, tweetdatedb, team, gw))
 
             conn.commit()
-        if count >= 110:
+        if count >= 60:
             break

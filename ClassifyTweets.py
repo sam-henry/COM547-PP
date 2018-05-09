@@ -25,7 +25,7 @@ conn = MySQLdb.connect("localhost","root","","premierpredict",use_unicode=True, 
 
 # prepare a cursor object using cursor() method
 cursor = conn.cursor()
-gws = [34]
+gws = [39]
 # retrieve all the teams from the DB
 teams = []
 sqlquery = "SELECT TeamName, ShortTeamName FROM pp_teams"
@@ -50,7 +50,7 @@ models = [
 for gw in gws:
     # loop through teams
     for team in teams:
-        sqlstmt = "SELECT * FROM tweetdata3 WHERE GameWeek = '%s' AND Team = '%s'" % (gw, team['ShortTeamName'])
+        sqlstmt = "SELECT * FROM tweetdata WHERE GameWeek = '%s' AND Team = '%s'" % (gw, team['ShortTeamName'])
         # Execute the SQL command
         cursor.execute(sqlstmt)
         # Fetch all the rows in a list of lists.
@@ -65,7 +65,7 @@ for gw in gws:
                 count = 0
                 p_count = 0
                 # Prepare SQL query to INSERT a record into the database
-                sqlstmt = "SELECT * FROM tweetdata3 WHERE GameWeek = '%s' AND Team = '%s'" % (gw, team['ShortTeamName'])
+                sqlstmt = "SELECT * FROM tweetdata WHERE GameWeek = '%s' AND Team = '%s'" % (gw, team['ShortTeamName'])
                 # Execute the SQL command
                 cursor.execute(sqlstmt)
                 # Fetch all the rows in a list of lists.

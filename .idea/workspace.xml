@@ -4,15 +4,9 @@
     <list default="true" id="de896424-8e68-4f39-b651-48581e8b38fd" name="Default" comment="Test Commit PyCharm">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ClassifyTweets.py" beforeDir="false" afterPath="$PROJECT_DIR$/ClassifyTweets.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Prediction.py" beforeDir="false" afterPath="$PROJECT_DIR$/Prediction.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PremierPredict/Predictions/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/PremierPredict/Predictions/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PremierPredict/Predictions/static/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/PremierPredict/Predictions/static/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PremierPredict/Predictions/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/PremierPredict/Predictions/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PremierPredict/Predictions/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/PremierPredict/Predictions/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/PremierPredict/PremierPredict/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/PremierPredict/PremierPredict/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SeintimentClassifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/SeintimentClassifier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TweetHistory.py" beforeDir="false" afterPath="$PROJECT_DIR$/TweetHistory.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TwitterSearch.py" beforeDir="false" afterPath="$PROJECT_DIR$/TwitterSearch.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/TwitterStream.py" beforeDir="false" afterPath="$PROJECT_DIR$/TwitterStream.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/UpdateCorrectCounters.py" beforeDir="false" afterPath="$PROJECT_DIR$/UpdateCorrectCounters.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -23,14 +17,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="SeintimentClassifier.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/SeintimentClassifier.py">
+      <file leaf-file-name="TwitterStream.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/TwitterStream.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret selection-end-line="115" />
-              <folding>
-                <element signature="e#0#59#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="204">
+              <caret line="15" column="7" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
             </state>
           </provider>
         </entry>
@@ -73,24 +64,24 @@
         <option value="$PROJECT_DIR$/Test.py" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/Testing.py" />
-        <option value="$PROJECT_DIR$/TwitterSearch.py" />
-        <option value="$PROJECT_DIR$/TweetHistory.py" />
         <option value="$PROJECT_DIR$/PremierPredict/Predictions/templates/index.html" />
         <option value="$PROJECT_DIR$/PremierPredict/Predictions/static/style.css" />
         <option value="$PROJECT_DIR$/PremierPredict/Predictions/models.py" />
         <option value="$PROJECT_DIR$/PremierPredict/Predictions/views.py" />
         <option value="$PROJECT_DIR$/PremierPredict/PremierPredict/urls.py" />
         <option value="$PROJECT_DIR$/UpdateCorrectCounters.py" />
-        <option value="$PROJECT_DIR$/ClassifyTweets.py" />
-        <option value="$PROJECT_DIR$/TwitterStream.py" />
         <option value="$PROJECT_DIR$/Prediction.py" />
         <option value="$PROJECT_DIR$/SeintimentClassifier.py" />
+        <option value="$PROJECT_DIR$/ClassifyTweets.py" />
+        <option value="$PROJECT_DIR$/TweetHistory.py" />
+        <option value="$PROJECT_DIR$/TwitterSearch.py" />
+        <option value="$PROJECT_DIR$/TwitterStream.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
-    <option name="width" value="1297" />
+    <option name="width" value="1178" />
     <option name="height" value="1398" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -99,6 +90,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -115,7 +107,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -142,7 +133,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.UpdateCorrectCounters">
+  <component name="RunManager" selected="Python.TwitterStream">
     <configuration name="ClassifyTweets" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="TwitterStream" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -179,7 +170,7 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="Testing" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="TwitterSearch" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="TwitterStream" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -191,7 +182,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Testing.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/TwitterSearch.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -234,19 +225,19 @@
       <option name="MODULE_MODE" value="false" />
     </configuration>
     <list>
-      <item itemvalue="Python.ClassifyTweets" />
       <item itemvalue="Python.Prediction" />
       <item itemvalue="Python.UpdateCorrectCounters" />
+      <item itemvalue="Python.ClassifyTweets" />
+      <item itemvalue="Python.TwitterSearch" />
       <item itemvalue="Python.TwitterStream" />
-      <item itemvalue="Python.Testing" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.UpdateCorrectCounters" />
-        <item itemvalue="Python.Prediction" />
         <item itemvalue="Python.TwitterStream" />
-        <item itemvalue="Python.Testing" />
+        <item itemvalue="Python.Prediction" />
         <item itemvalue="Python.ClassifyTweets" />
+        <item itemvalue="Python.TwitterSearch" />
+        <item itemvalue="Python.UpdateCorrectCounters" />
       </list>
     </recent_temporary>
   </component>
@@ -272,15 +263,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="2062" height="1126" extended-state="6" />
+    <frame x="-6" y="0" width="942" height="1118" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.095214844" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2101293" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5058594" side_tool="true" weight="0.2166998" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49414062" weight="0.21293533" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49414062" visible="true" weight="0.32935324" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32964426" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -310,6 +301,13 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/SeintimentClassifier.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret selection-end-line="115" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/PremierPredict/Predictions/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
@@ -396,23 +394,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Testing.py" />
-    <entry file="file://$PROJECT_DIR$/TwitterSearch.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="642">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TweetHistory.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="625">
-          <caret line="49" selection-start-line="49" selection-end-line="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PremierPredict/Predictions/apps.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/PremierPredict/Predictions/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -424,10 +405,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="931">
           <caret line="203" selection-end-line="203" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#div#0;n#nav#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -442,9 +419,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret selection-end-line="178" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -452,9 +426,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
           <caret line="33" column="67" lean-forward="true" selection-end-line="33" selection-end-column="67" />
-          <folding>
-            <element signature="e#638#670#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -465,43 +436,51 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ClassifyTweets.py">
+    <entry file="file://$PROJECT_DIR$/SeintimentClassifier.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="509">
-          <caret line="50" column="24" selection-start-line="50" selection-start-column="24" selection-end-line="50" selection-end-column="24" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/TwitterStream.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="170" selection-end-column="41" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="765">
+          <caret line="57" column="19" lean-forward="true" selection-start-line="57" selection-start-column="19" selection-end-line="57" selection-end-column="19" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Prediction.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret selection-end-line="81" selection-end-column="12" />
+          <caret line="22" column="19" selection-start-line="22" selection-start-column="19" selection-end-line="22" selection-end-column="19" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SeintimentClassifier.py">
+    <entry file="file://$PROJECT_DIR$/ClassifyTweets.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret selection-end-line="115" />
+        <state relative-caret-position="149">
+          <caret line="61" column="33" lean-forward="true" selection-start-line="61" selection-start-column="33" selection-end-line="61" selection-end-column="33" />
           <folding>
-            <element signature="e#0#59#0" expanded="true" />
+            <element signature="e#0#36#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TweetHistory.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="31" column="20" lean-forward="true" selection-start-line="31" selection-start-column="20" selection-end-line="31" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TwitterSearch.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/TwitterStream.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="15" column="7" selection-start-line="15" selection-start-column="7" selection-end-line="15" selection-end-column="7" />
         </state>
       </provider>
     </entry>

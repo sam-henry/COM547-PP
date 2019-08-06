@@ -151,10 +151,10 @@ class MyStreamListener(tweepy.StreamListener):
 
 
 # Data to produce the authentication token for connecting to the twitter api
-ckey = "UJ5LUyq9RZ8dAUiwRvKtHgOWi"
-csecret = "oUc85NGKuIqTenTtyLkkOf40e1ohcXoUVx4gyQEG9giMhZfdoi"
-atoken = "526890392-8WQJBhoB53f69mtnIjaPYCAaLBlYrtCXxUAqGTXc"
-asecret = "utmPGRtezzrUvzP6qzTBLYstqy5cYP0XDMNEGH5UqEn8k"
+ckey = ""
+csecret = ""
+atoken = ""
+asecret = ""
 # create authentication token
 auth = OAuthHandler(ckey, csecret)
 auth.set_access_token(atoken, asecret)

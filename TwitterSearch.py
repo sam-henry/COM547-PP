@@ -9,10 +9,10 @@ import time
 conn = MySQLdb.connect("localhost","root","","premierpredict",use_unicode=True, charset='utf8')
 
 # consumer key, consumer secret, access token, access secret.
-ckey = "UJ5LUyq9RZ8dAUiwRvKtHgOWi"
-csecret = "oUc85NGKuIqTenTtyLkkOf40e1ohcXoUVx4gyQEG9giMhZfdoi"
-atoken = "526890392-8WQJBhoB53f69mtnIjaPYCAaLBlYrtCXxUAqGTXc"
-asecret = "utmPGRtezzrUvzP6qzTBLYstqy5cYP0XDMNEGH5UqEn8k"
+ckey = ""
+csecret = ""
+atoken = ""
+asecret = ""
 
 auth = OAuthHandler(ckey, csecret)
 auth.set_access_token(atoken, asecret)
